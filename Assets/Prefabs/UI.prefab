@@ -634,6 +634,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5145084552387185432}
   - component: {fileID: 6101301330056472460}
+  - component: {fileID: 4731697078724887861}
   m_Layer: 5
   m_Name: Cable Slider
   m_TagString: Untagged
@@ -713,7 +714,31 @@ MonoBehaviour:
   m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4731697078724887861}
+        m_TargetAssemblyTypeName: CableUI, Assembly-CSharp
+        m_MethodName: SendMove
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &4731697078724887861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1753613506670522213}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3453ba2125125bd438d2017413aa391c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1906445868567390509
 GameObject:
   m_ObjectHideFlags: 0
@@ -1097,7 +1122,7 @@ GameObject:
   - component: {fileID: 7530662998471054032}
   - component: {fileID: 3938172280707036622}
   m_Layer: 5
-  m_Name: Button
+  m_Name: Button Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1204,7 +1229,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1898245015348226802}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4307569715047336570}
+        m_TargetAssemblyTypeName: TowerUI, Assembly-CSharp
+        m_MethodName: RotateTowerLeft
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &3938172280707036622
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1874,6 +1911,7 @@ GameObject:
   - component: {fileID: 9198323732402978570}
   - component: {fileID: 2289883301010475129}
   - component: {fileID: 1882851999074407243}
+  - component: {fileID: 4307569715047336570}
   m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
@@ -1945,6 +1983,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &4307569715047336570
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5494010602817126061}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ca3649bcafac264b89e7630e5d83958, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rotateLeft: {fileID: 7530662998471054032}
+  _rotateRight: {fileID: 3869204077296980378}
 --- !u!1 &5860507796499485432
 GameObject:
   m_ObjectHideFlags: 0
@@ -2304,7 +2356,7 @@ GameObject:
   - component: {fileID: 3869204077296980378}
   - component: {fileID: 8690616484941123924}
   m_Layer: 5
-  m_Name: Button (1)
+  m_Name: Button Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2411,7 +2463,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6868879204579889643}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4307569715047336570}
+        m_TargetAssemblyTypeName: TowerUI, Assembly-CSharp
+        m_MethodName: RotateTowerRight
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &8690616484941123924
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3011,6 +3075,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1330316463637356104}
   - component: {fileID: 1064534356098386809}
+  - component: {fileID: 994527985158493603}
   m_Layer: 5
   m_Name: Trolley Slider
   m_TagString: Untagged
@@ -3090,4 +3155,28 @@ MonoBehaviour:
   m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 994527985158493603}
+        m_TargetAssemblyTypeName: TrolleyUI, Assembly-CSharp
+        m_MethodName: SendMove
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &994527985158493603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9003247899879652964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de7f4214004fa4a4386126c06047822f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

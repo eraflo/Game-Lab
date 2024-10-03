@@ -5,9 +5,6 @@
 * **Attach** (or *soft parenting*): means attached object moves and rotate relative to another object space. In Unity terms, the attached object behaves as if its transform was parented to another object's transform (parent)
 * **Clockwise** and **Counter Clockwise**: rotations around world Y axis with world Z axis as 12:00 hourhand
 
-### Crane Anatomy
-![](https://github.com/TUAS-Duy/game-math-private/blob/f7d51d48f45970dc138f0d7e3e4cd627f86341e2/Images/crane-anatomy.png)
-
 ### Grading
 | Grade | Mechanics |
 | :---: | ------------- |
@@ -26,17 +23,12 @@
 * `Cable` mechanics can be done with `LineRenderer` component or provided cable model
 
 ### UI Control
-![](https://github.com/TUAS-Duy/game-math-private/blob/f7d51d48f45970dc138f0d7e3e4cd627f86341e2/Images/crane-control-ui.png)
 * `Left button` rotates `Crane` clockwise
 * `Right button` rotates `Crane` counter clockwise
 * `Cable slider` controls `Cable` normalized length from min length to max length 
 * `Trolley slider` controls normalized position of `Trolley` along segment created by near point and far point on `Crane`'s arm
 
 # Exercise 2
-
-### Crane Anatomy
-![](https://github.com/TUAS-Duy/game-math-private/blob/f7d51d48f45970dc138f0d7e3e4cd627f86341e2/Images/crane-anatomy.png)
-
 ### Grading
 
 Crane execute following sequence of actions when user click on `Concrete`:
@@ -54,7 +46,6 @@ Crane execute following sequence of actions when user click on `Concrete`:
 | 3 | Perform upto step 3 |
 | 4 | Perform upto step 4 |
 | 5 | Perform upto step 5. The validity of the random position can be checked by projecting it to world plane and compare that with projected inner and outer circles formed by `Trolley`'s near and far limits. The y position must be in range [10, 20]
-
 
 ### Note:
 * `Transform` parenting is not allowed

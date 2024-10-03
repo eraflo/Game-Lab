@@ -48,6 +48,20 @@ public class PlayerController : MonoBehaviour
         _cable.transform.localScale = Vector3.Lerp(new Vector3(1, _minHeight, 1), new Vector3(1, _maxHeight, 1), distance);
     }
 
+    public Transform GetTrolleyTransform()
+    {
+        return _trolley.transform;
+    }
+
+    public float GetTrolleyPositionOnArm()
+    {
+        return Vector3.Distance(_near.transform.position, _trolley.transform.position) / Vector3.Distance(_near.transform.position, _far.transform.position);
+    }
+
+    public Vector3 GetTrolleyToTowerVector()
+    {
+        return _trolley.transform.position - _tower.transform.position;
+    }
 
     public float RotationAngle
     {

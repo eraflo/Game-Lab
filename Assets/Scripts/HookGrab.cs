@@ -10,7 +10,7 @@ public class HookGrab : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("HookGrabbable"))
+        if (other.CompareTag("HookGrabbable") && other is SphereCollider)
         {
             Child c = other.AddComponent<Child>();
             c.Parent = this.transform;
@@ -22,7 +22,7 @@ public class HookGrab : MonoBehaviour
 
     public void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("HookGrabbable"))
+        if (other.CompareTag("HookGrabbable") && other is SphereCollider)
         {
             Destroy(other.GetComponent<Child>());
         }

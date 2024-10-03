@@ -58,9 +58,29 @@ public class PlayerController : MonoBehaviour
         return Vector3.Distance(_near.transform.position, _trolley.transform.position) / Vector3.Distance(_near.transform.position, _far.transform.position);
     }
 
+    public float GetCableHeight()
+    {
+        return _cable.transform.localScale.y / _maxHeight;
+    }
+
+    public bool IsMinHeight()
+    {
+        return GetCableHeight() <= 0.1f;
+    }
+
     public Vector3 GetTrolleyToTowerVector()
     {
         return _trolley.transform.position - _tower.transform.position;
+    }
+
+    public Vector3 NearVector()
+    {
+        return _near.RelativePosition;
+    }
+
+    public Vector3 FarVector()
+    {
+        return _far.RelativePosition;
     }
 
     public float RotationAngle

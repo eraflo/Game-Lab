@@ -889,9 +889,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3921229593097601327, guid: 4b03907610a9b6d4eb0eb16243b1ed7a, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4484027012644251944, guid: 4b03907610a9b6d4eb0eb16243b1ed7a, type: 3}
       propertyPath: m_Name
       value: Concrete
+      objectReference: {fileID: 0}
+    - target: {fileID: 8559674090672353129, guid: 4b03907610a9b6d4eb0eb16243b1ed7a, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8559674090672353129, guid: 4b03907610a9b6d4eb0eb16243b1ed7a, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1387,7 +1399,7 @@ MonoBehaviour:
   _near: {fileID: 601031392}
   _far: {fileID: 363527141}
   _minHeight: 0.2
-  _maxHeight: 2
+  _maxHeight: 2.4
 --- !u!33 &8658184023395725018
 MeshFilter:
   m_ObjectHideFlags: 0

@@ -24,11 +24,13 @@ namespace Ex3
         {
             foreach (ISystemElement element in systemElements)
             {
-                if(element.RevolvedPlanet == null)
+                if(element.RevolvedPlanet == null || element.Orbit == null)
                 {
                     element.Rotate();
                     continue;
                 }
+
+                Debug.Log(element.Name);
 
                 element.Rotate();
                 element.Revolve();

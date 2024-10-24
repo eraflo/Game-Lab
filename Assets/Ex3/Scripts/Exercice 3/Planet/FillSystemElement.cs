@@ -7,6 +7,7 @@ namespace Ex3
     public class FillSystemElement : MonoBehaviour
     {
         public SystemElementUI UI { get; set; }
+        public SystemElementUI LastUI { get; set; }
 
         [SerializeField]
         private StarSystemUI starSystemUI;
@@ -21,8 +22,6 @@ namespace Ex3
         [SerializeField]
         private TMP_InputField radiusInput;
         [SerializeField]
-        private TMP_InputField distanceInput;
-        [SerializeField]
         private GameObject colorPicker;
         [SerializeField]
         private Button selectParent;
@@ -32,6 +31,10 @@ namespace Ex3
         private TMP_Dropdown orbitType;
         [SerializeField]
         private Toggle orbitToggle;
+        [SerializeField]
+        private TMP_InputField orbitRadius;
+        [SerializeField]
+        private TMP_Dropdown orbitDirection;
 
         private FlexibleColorPicker colorPickerScript;
 
@@ -39,13 +42,14 @@ namespace Ex3
         public TMP_InputField SpeedInput { get => speedInput; set => speedInput = value; }
         public TMP_InputField RotationSpeedInput { get => rotationSpeedInput; set => rotationSpeedInput = value; }
         public TMP_InputField RadiusInput { get => radiusInput; set => radiusInput = value; }
-        public TMP_InputField DistanceInput { get => distanceInput; set => distanceInput = value; }
         public Button SelectParent { get => selectParent; set => selectParent = value; }
 
         public FlexibleColorPicker ColorPicker { get => colorPickerScript; set => colorPickerScript = value; }
 
         public TMP_Dropdown OrbitType { get => orbitType; set => orbitType = value; }
         public Toggle OrbitToggle { get => orbitToggle; set => orbitToggle = value; }
+        public TMP_InputField OrbitRadius { get => orbitRadius; set => orbitRadius = value; }
+        public TMP_Dropdown OrbitDirection { get => orbitDirection; set => orbitDirection = value; }
 
 
         private void Start()
@@ -57,7 +61,6 @@ namespace Ex3
             speedInput.text = UI.systemElement.Speed.ToString();
             rotationSpeedInput.text = UI.systemElement.RotationSpeed.ToString();
             radiusInput.text = UI.systemElement.Radius.ToString();
-            distanceInput.text = UI.systemElement.Distance.ToString();
             colorPickerScript.color = UI.systemElement.Color;
 
             nameInput.onValueChanged.AddListener((value) =>
@@ -93,15 +96,6 @@ namespace Ex3
                 }
             });
 
-            distanceInput.onValueChanged.AddListener((value) =>
-            {
-                if (float.TryParse(value, out float distance))
-                {
-                    UI.systemElement.Distance = distance;
-                    UI.DistanceText = "Distance : " + distance.ToString();
-                }
-            });
-
             colorPickerScript.onColorChange.AddListener((color) =>
             {
                 UI.systemElement.Color = color;
@@ -109,6 +103,7 @@ namespace Ex3
 
             orbitType.onValueChanged.AddListener((value) =>
             {
+                IOrbit old = UI.systemElement.Orbit;
                 switch (value)
                 {
                     case 0:
@@ -118,6 +113,15 @@ namespace Ex3
                         UI.systemElement.Orbit = new Elliptical();
                         break;
                 }
+
+                if(old != null)
+                {
+                    UI.systemElement.Orbit.Radius = old.Radius;
+                    UI.systemElement.Orbit.Direction = old.Direction;
+                    UI.systemElement.Orbit.ToggleOrbit = old.ToggleOrbit;
+                }
+                
+                ToggleOrbitUI(true);
             });
 
             orbitToggle.onValueChanged.AddListener((value) =>
@@ -125,6 +129,28 @@ namespace Ex3
                 UI.systemElement.Orbit.ToggleOrbit = value;
             });
 
+            orbitRadius.onValueChanged.AddListener((value) =>
+            {
+                if (float.TryParse(value, out float radius))
+                {
+                    UI.systemElement.Orbit.Radius = radius;
+                }
+            });
+
+            orbitDirection.onValueChanged.AddListener((value) =>
+            {
+                switch (value)
+                {
+                    case 0:
+                        UI.systemElement.Orbit.Direction = Ex3.OrbitDirection.Clockwise;
+                        break;
+                    case 1:
+                        UI.systemElement.Orbit.Direction = Ex3.OrbitDirection.CounterClockwise;
+                        break;
+                }
+            });
+
+            // Select the parent of an orbit
             selectParent.onClick.AddListener(
                 () =>
                 {
@@ -137,9 +163,17 @@ namespace Ex3
             );
         }
 
+        public void ToggleOrbitUI(bool toggle)
+        {
+            orbitToggle.gameObject.SetActive(toggle);
+            orbitRadius.gameObject.SetActive(toggle);
+            orbitDirection.gameObject.SetActive(toggle);
+            selectParent.gameObject.SetActive(toggle);
+        }
+
         private void OnSelectParent(SystemElementUI element)
         {
-            UI.systemElement.RevolvedPlanet = element.systemElement;
+            LastUI.systemElement.RevolvedPlanet = element.systemElement;
 
             foreach (SystemElementUI elementUI in starSystemUI.Elements)
             {

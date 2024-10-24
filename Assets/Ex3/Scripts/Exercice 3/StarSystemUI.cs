@@ -8,6 +8,7 @@ namespace Ex3
     public class StarSystemUI : MonoBehaviour
     {
         public StarSystem starSystem;
+        public GameObject systemElementPrefab;
 
         [Header("UI")]
         public FillSystemElement fillSystemElement;
@@ -38,10 +39,7 @@ namespace Ex3
             // Select Element when click on it
             foreach (SystemElementUI element in elements)
             {
-                element.OnClick += (element) =>
-                {
-                    SelectElement(element);
-                };
+                element.OnClick += SelectElement;
             }
         }
 
@@ -60,13 +58,15 @@ namespace Ex3
 
         public void AddElement()
         {
-            BaseSystemElement element = new BaseSystemElement();
+            BaseSystemElement element = Instantiate(systemElementPrefab, new Vector3(0, -1, 0), Quaternion.identity).GetComponent<BaseSystemElement>();
             starSystem.Elements.Add(element);
 
             GameObject ui = Instantiate(uiPrefab, UIHolder.transform);
             SystemElementUI systemElementUI = ui.GetComponent<SystemElementUI>();
             systemElementUI.systemElement = element;
             elements.Add(systemElementUI);
+
+            systemElementUI.OnClick += SelectElement;
         }
 
         public void RemoveElement()
@@ -75,12 +75,18 @@ namespace Ex3
                 return;
 
             SystemElementUI systemElementUI = selected;
+            GameObject obj;
 
             int index = starSystem.Elements.IndexOf((BaseSystemElement)selected.systemElement);
+
+            obj = starSystem.Elements[index].gameObject;
+
+            systemElementUI.OnClick -= SelectElement;
 
             elements.Remove(systemElementUI);
             starSystem.Elements.RemoveAt(index);
             Destroy(systemElementUI.gameObject);
+            Destroy(obj);
         }
     }
 }

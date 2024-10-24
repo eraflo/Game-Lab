@@ -30,8 +30,6 @@ namespace Ex3
                     continue;
                 }
 
-                Debug.Log(element.Name);
-
                 element.Rotate();
                 element.Revolve();
             }

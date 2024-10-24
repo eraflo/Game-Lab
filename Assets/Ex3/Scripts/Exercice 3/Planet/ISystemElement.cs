@@ -21,8 +21,8 @@ namespace Ex3
         float Speed { get; set; }
         Color Color { get; set; }
         float Radius { get; set; }
-        float Distance { get; set; }
         Transform ElemTransform { get; }
+        Vector3 RotationAxis { get; set; }
     }
 
     public enum SystemElementType

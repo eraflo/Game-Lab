@@ -6,7 +6,7 @@ namespace Ex3
 {
     public interface IOrbit
     {
-        Vector3 Orbit(float angle, Vector3 initPos, Vector3 rotationAxis);
+        Vector3 Orbit(float angle, Transform parent, Vector3 rotationAxis);
         float Radius { get; set; }
         OrbitDirection Direction { get; set; }
 

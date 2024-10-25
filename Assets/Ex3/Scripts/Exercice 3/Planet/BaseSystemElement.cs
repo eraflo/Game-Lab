@@ -12,6 +12,9 @@ namespace Ex3
         [SerializeField]
         private SystemElementType type;
 
+        [SerializeField]
+        private int segments = 100;
+
 
         public SystemElementType Type { get; set; }
         public IOrbit Orbit { get; set; }
@@ -45,7 +48,7 @@ namespace Ex3
         {
             // Do rotation with quaternion
             Vector3 rotationAxisNormalize = RotationAxis.normalized;
-            float angle = RotationSpeed * Time.deltaTime;
+            float angle = RotationSpeed * Time.deltaTime * Mathf.Deg2Rad;
             float x = Mathf.Sin(angle / 2) * rotationAxisNormalize.x;
             float y = Mathf.Sin(angle / 2) * rotationAxisNormalize.y;
             float z = Mathf.Sin(angle / 2) * rotationAxisNormalize.z;
@@ -65,7 +68,8 @@ namespace Ex3
         public void Revolve()
         {
             float angle = Time.time * Speed;
-            //transform.position = RevolvedPlanet.ElemTransform.position + Orbit.Orbit(angle, RevolvedPlanet.RotationAxis);
+            Vector3 parentPos = RevolvedPlanet.ElemTransform.position;
+            transform.position = parentPos + Orbit.Orbit(angle, RevolvedPlanet.ElemTransform, RevolvedPlanet.RotationAxis);
         }
 
         private void OnDrawGizmos()
@@ -75,12 +79,17 @@ namespace Ex3
             // Draw orbit
             if (Orbit != null && Orbit.ToggleOrbit)
             {
-                //Vector3 lastPos = RevolvedPlanet.ElemTransform.position + Orbit.Orbit(0, RevolvedPlanet.RotationAxis);
-                for (int i = 1; i <= 360; i++)
+                Vector3 parentPos = RevolvedPlanet.ElemTransform.position;
+                Vector3 lastPos = parentPos + Orbit.Orbit(0, RevolvedPlanet.ElemTransform, RevolvedPlanet.RotationAxis);
+
+                for (int i = 1; i <= segments; i++)
                 {
-                    //Vector3 pos = RevolvedPlanet.ElemTransform.position + Orbit.Orbit(i, RevolvedPlanet.RotationAxis);
-                    //Gizmos.DrawLine(lastPos, pos);
-                    //lastPos = pos;
+                    float theta = (float)i / segments * 360f;
+                    Vector3 currentPoint = parentPos + Orbit.Orbit(theta, RevolvedPlanet.ElemTransform, RevolvedPlanet.RotationAxis);
+
+                    Gizmos.DrawLine(lastPos, currentPoint);
+
+                    lastPos = currentPoint;
                 }
             }
 

@@ -23,7 +23,11 @@ namespace Ex3
         float Radius { get; set; }
         Transform ElemTransform { get; }
         Vector3 RotationAxis { get; set; }
+
+        event SystemCollide OnSystemCollide;
     }
+
+    public delegate void SystemCollide(ISystemElement element);
 
     public enum SystemElementType
     {

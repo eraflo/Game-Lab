@@ -173,6 +173,12 @@ namespace Ex3
 
         private void OnSelectParent(SystemElementUI element)
         {
+            if(element.systemElement.Type == SystemElementType.Moon)
+            {
+                starSystemUI.ShowPopUp("A moon cannot have a moon as parent");
+                return;
+            }
+
             LastUI.systemElement.RevolvedPlanet = element.systemElement;
 
             foreach (SystemElementUI elementUI in starSystemUI.Elements)

@@ -2,6 +2,7 @@
 
 using TMPro;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
 
 namespace Ex3
@@ -29,6 +30,18 @@ namespace Ex3
         [SerializeField]
         private TMP_InputField z;
 
+        [Header("System Type")]
+        [SerializeField]
+        private Material sunMat;
+        [SerializeField]
+        private Toggle isSun;
+
+        [SerializeField]
+        private Material moonMat;
+        [SerializeField]
+        private Toggle isMoon;
+
+        private Material defaultMat;
 
         public ISystemElement systemElement { get; set; }
 
@@ -41,11 +54,15 @@ namespace Ex3
         public string Y { get => y.text; set => y.text = value; }
         public string Z { get => z.text; set => z.text = value; }
 
+        public bool IsSun { get => isSun.isOn; set => isSun.isOn = value; }
+        public bool IsMoon { get => isMoon.isOn; set => isMoon.isOn = value; }
 
         public bool HasOrbit { get => systemElement.Orbit != null; }
 
         private void Start()
         {
+            defaultMat = systemElement.ElemTransform.gameObject.GetComponent<Renderer>().material;
+
             NameText = systemElement.Name;
             SpeedText = "Speed : " + systemElement.Speed.ToString();
             RotationSpeedText = "Rotation Speed : " + systemElement.RotationSpeed.ToString();
@@ -69,6 +86,97 @@ namespace Ex3
             {
                 systemElement.RotationAxis = new Vector3(float.Parse(X), float.Parse(Y), float.Parse(Z));
             });
+
+            // Manage the sun and moon toggle
+
+            isSun.onValueChanged.AddListener((value) =>
+            {
+                if (value)
+                {
+                    if(systemElement.ElemTransform.gameObject.GetComponent<Light>() == null)
+                    {
+                        Light light = systemElement.ElemTransform.gameObject.AddComponent<Light>();
+                        light.color = Color.yellow;
+                        light.type = LightType.Point;
+                        light.intensity = 10 * systemElement.Radius;
+                        light.range = 100 * systemElement.Radius;
+                        systemElement.ElemTransform.gameObject.GetComponent<Renderer>().material = sunMat;
+                    }
+                    else
+                    {
+                        isMoon.isOn = false;
+                    }
+                }
+                else
+                {
+                    UniversalAdditionalLightData lightdata = systemElement.ElemTransform.gameObject.GetComponent<UniversalAdditionalLightData>();
+                    if (lightdata != null)
+                    {
+                        Destroy(lightdata);
+                    }
+
+                    Light light = systemElement.ElemTransform.gameObject.GetComponent<Light>();
+                    if (light != null)
+                    {
+                        Destroy(light);
+                    }
+
+
+                    systemElement.ElemTransform.gameObject.GetComponent<Renderer>().material = defaultMat;
+                }
+            });
+
+            isMoon.onValueChanged.AddListener((value) =>
+            {
+                
+                if (value)
+                {
+                    if (systemElement.ElemTransform.gameObject.GetComponent<Light>() == null)
+                    {
+                        Light light = systemElement.ElemTransform.gameObject.AddComponent<Light>();
+                        light.color = Color.white;
+                        light.type = LightType.Point;
+                        light.intensity = 5 * systemElement.Radius;
+                        light.range = 10 * systemElement.Radius;
+                        systemElement.ElemTransform.gameObject.GetComponent<Renderer>().material = moonMat;
+                    }
+                    else
+                    {
+                        isSun.isOn = false;
+                    }
+                }
+                else
+                {
+                    UniversalAdditionalLightData lightdata = systemElement.ElemTransform.gameObject.GetComponent<UniversalAdditionalLightData>();
+                    if (lightdata != null)
+                    {
+                        Destroy(lightdata);
+                    }
+
+                    Light light = systemElement.ElemTransform.gameObject.GetComponent<Light>();
+                    if (light != null)
+                    {
+                        Destroy(light);
+                    }
+
+
+                    systemElement.ElemTransform.gameObject.GetComponent<Renderer>().material = defaultMat;
+                }
+            });
+
+            // Switch the toggle to update the UI
+            if (isSun.isOn)
+            {
+                isSun.isOn = false;
+                isSun.isOn = true;
+            }
+
+            // Switch the toggle to update the UI
+            if (isMoon.isOn)
+            {
+                isMoon.isOn = false;
+                isMoon.isOn = true;
+            }
         }
 
         private void Update()
